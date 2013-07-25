@@ -48,8 +48,9 @@ public class MainActivity extends Activity {
 			public void onProviderEnabled(String provider) {}
 			public void onStatusChanged(String provider, int status, Bundle extras) {} 
       });
-      mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
-      mlocManager.requestLocationUpdates( LocationManager.PASSIVE_PROVIDER, 0, 0, mlocListener);
+      mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10000, 50, mlocListener);
+      mlocManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER, 10000, 50, mlocListener);
+      mlocManager.requestLocationUpdates( LocationManager.PASSIVE_PROVIDER, 0, 50, mlocListener);
       
       Button quit = (Button) findViewById(R.id.button2);
       
@@ -74,7 +75,7 @@ public class MainActivity extends Activity {
     		"Location.csv");
     	OutputStreamWriter out = null;
     	try {
-    		 out = new OutputStreamWriter(new FileOutputStream(file));
+    		 out = new OutputStreamWriter(new FileOutputStream(file, true));
     		 out.append(String.valueOf(loc.getLatitude()) + ',');
     		 out.append(String.valueOf(loc.getLongitude()) + ',');
     		 out.append(String.valueOf(loc.getAccuracy()) + '\n');
